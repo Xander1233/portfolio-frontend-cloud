@@ -1,0 +1,14 @@
+<div class="main">
+	<div class="header">
+		<div class="title">500 - Internal Server Error</div>
+	</div>
+
+	<div>
+		<p>
+			Sorry, something went wrong on our end.
+			<br> Error details: {{ message }}
+			<br> If the problem persists, please contact support under <a [href]="'mailto:straim-it@straim.de?body=' + message + '&subject=Intranet Internal Server Error'">straim-it&#64;straim.de</a>
+		</p>
+		<p style="margin-top: 15px;">Return to the <a routerLink="/">home page</a>.</p>
+	</div>
+</div>
