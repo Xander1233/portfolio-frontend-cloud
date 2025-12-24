@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from '../../../../services/api.service';
-import { MenuItem } from 'primeng/api';
+import { PersonalInfoLink } from '../../../../data/personalInformation';
 
 @Component({
 	selector: 'top-bar',
@@ -10,18 +10,16 @@ import { MenuItem } from 'primeng/api';
 })
 export class TopBarComponent implements OnInit {
 
-	user: {} | null = null;
-	image: string = "";
-	label: string = "";
+	items: PersonalInfoLink[] = [];
 
-	items: MenuItem[] = [];
-
-	constructor() {
+	constructor(public api: APIService) {
 
 	}
 
 	ngOnInit(): void {
-
+		this.api.getPersonalInformation().subscribe((info) => {
+			this.items = info.data.links;
+		});
 	}
 
 }

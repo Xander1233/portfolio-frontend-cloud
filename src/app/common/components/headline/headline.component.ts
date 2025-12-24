@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from '../../../../services/api.service';
-import { MenuItem } from 'primeng/api';
-import { forkJoin, pipe } from 'rxjs';
+import { forkJoin } from 'rxjs';
+import { PersonalInformation } from '../../../../data/personalInformation';
+import { About } from '../../../../data/about';
 
 @Component({
 	selector: 'headline',
@@ -11,8 +12,20 @@ import { forkJoin, pipe } from 'rxjs';
 })
 export class HeadlineComponent implements OnInit {
 
-	personalInformation: any;
-	about: any;
+	personalInformation: PersonalInformation = {
+		first_name: "",
+		last_name: "",
+		birthdate: 0,
+		email: "",
+		location: "",
+		location_city: "",
+		links: []
+	};
+	about: About = {
+		headline: "",
+		content: "",
+		cv_link: ""
+	};
 
 	constructor(public service: APIService) {}
 

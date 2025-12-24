@@ -1,15 +1,7 @@
 <div class="menubar">
-    <div class="user-info">
-        <div>
-            <span *ngIf="user">{{user}}</span>
-            <p-skeleton width="7rem" height="20px" *ngIf="!user">No display name available</p-skeleton>
-        </div>
-        <div>
-            <span *ngIf="user">{{user}}</span>
-            <p-skeleton width="10rem" height="20px" *ngIf="!user">No email available</p-skeleton>
-        </div>
+    <div *ngFor="let link of items">
+        <a [href]="link.url" target="_blank" rel="noopener noreferrer" class="p-button text-lg font-bold hover:underline">
+            {{ link.name }}
+        </a>
     </div>
-
-    <p-avatar *ngIf="!!image" [image]="image" shape="circle" size="large"></p-avatar>
-    <p-avatar *ngIf="!image" [label]="label" shape="circle" size="large"></p-avatar>
 </div>

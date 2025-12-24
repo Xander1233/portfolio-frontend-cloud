@@ -1,0 +1,7 @@
+.container {
+	width: 100%;
+}
+
+::ng-deep .p-timeline .p-timeline-event-opposite {
+	display: none !important;
+}

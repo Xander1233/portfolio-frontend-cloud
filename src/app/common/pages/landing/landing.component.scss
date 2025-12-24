@@ -4,14 +4,15 @@
 	flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    box-sizing: inherit;
-    position: relative;
-	gap: 100px;
+	height: 80vh;
 }
 
-.header {
-	display: flex;
-	flex-flow: column nowrap;
-	align-items: center;
-	gap: 20px;
+.section-container {
+	width: 100%;
+	padding: 5em 0;
+	gap: 10em;
+
+	.inner-container {
+		width: 40%;
+	}
 }

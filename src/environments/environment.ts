@@ -1,5 +1,5 @@
 export const environment = {
 	production: false,
-	apiBaseUrl: "https://localhost:3000",
+	apiBaseUrl: "http://localhost:8000",
 	cdnBaseUrl: "https://cdn.david-neidhart.de"
 };

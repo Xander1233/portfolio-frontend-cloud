@@ -1,0 +1,7 @@
+<div class="container">
+	<p-timeline [value]="experiences.items">
+		<ng-template #content let-event>
+			<experience [item]="event" />
+		</ng-template>
+	</p-timeline>
+</div>

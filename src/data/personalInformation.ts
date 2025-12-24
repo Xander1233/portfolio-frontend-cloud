@@ -4,5 +4,11 @@ export interface PersonalInformation {
 	birthdate: number,
 	email: string,
 	location: string,
-	location_city: string
+	location_city: string,
+	links: PersonalInfoLink[]
+}
+
+export interface PersonalInfoLink {
+	name: string,
+	url: string
 }

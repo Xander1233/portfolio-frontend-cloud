@@ -1,0 +1,39 @@
+.card {
+	background-color: rgb(46, 97, 206, 0.2);
+}
+
+h3 {
+	color: var(--p-slate-300);
+}
+
+.logo-colored {
+
+	width: 60px;
+	height: 60px;
+	padding: 5px;
+	aspect-ratio: initial;
+
+	&.rust {
+		background-color: rgba(124, 66, 38, 0.4);
+	}
+
+	&.blue {
+		background-color: rgba(66, 133, 244, 0.4);
+	}
+
+	&.purple {
+		background-color: rgba(123, 31, 162, 0.4);
+	}
+
+	&.pink {
+		background-color: rgba(192, 53, 234, 0.4);
+	}
+
+	&.white {
+		background-color: rgba(255, 255, 255, 0.4);
+	}
+
+	&.indigo {
+		background-color: rgba(109, 129, 238, 0.4);
+	}
+}

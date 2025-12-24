@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
 @plugin "tailwindcss-primeui";
+@import "primeicons/primeicons.css";
 
 :host {
     --bright-blue: oklch(51.01% 0.274 263.83);
@@ -46,6 +47,7 @@ html, body {
   padding: 0;
   height: 100%;
   width: 100%;
+  background-color: var(--p-slate-950);
 }
 
 * {

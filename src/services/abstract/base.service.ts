@@ -1,15 +1,16 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Inject, Injectable } from "@angular/core";
-import { API_BASE_URL } from "../../app/app.module";
+import { Injectable } from "@angular/core";
 
 @Injectable({ providedIn: 'root' })
 export abstract class Base {
 
-	private base = 'http://localhost:8000';
+	private base = 'https://api.david-neidhart.de';
 	
-	constructor(private http: HttpClient, private basePath: string) {
+	constructor(private http: HttpClient, private basePath: string, baseUrl: string) {
 		this.basePath = this.basePath.replace(/^\/+|\/+$/g, '');
 		this.basePath = `/${this.basePath}`;
+
+		this.base = baseUrl.replace(/\/+$/g, '');
 	}
 
 	protected get<T>(path: string) {

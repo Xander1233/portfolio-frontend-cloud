@@ -1,0 +1,44 @@
+<div class="experience-card flex flex-row flex-start">
+    <div class="flex flex-row justify-between items-center w-full mb-2">
+        <div>
+            <a [href]="item.company_url" *ngIf="item.company_url !== ''" class="company-link font-bold" target="_blank" rel="noopener noreferrer">
+                {{ item.company }}
+            </a>
+            <span *ngIf="item.company_url === ''" class="company-link font-bold">
+                {{ item.company }}
+            </span>
+        </div>
+
+        <span class="text-surface-200 text-xl">{{ item.start }} - {{ item.end || 'Present' }}</span>
+    </div>
+
+    <div *ngIf="item.career.length > 1" class="career">
+        <p-timeline [value]="item.career" align="left">
+            <ng-template #content let-event>
+                <div class="career-event">
+                    <div class="flex flex-row justify-between items-center w-full mb-2">
+                        <h3 class="position text-lg">{{ event.position }}</h3>
+                        <span class="text-surface-500 dark:text-surface-400 text-lg">{{ event.start }} - {{ event.end || 'Present' }}</span>
+                    </div>
+
+                    <h5 class="location">{{ event.location }}</h5>
+                    <ul class="responsibilities">
+                        <li *ngFor="let item of event.description">
+                            {{ item }}
+                        </li>
+                    </ul>
+                </div>
+            </ng-template>
+        </p-timeline>
+    </div>
+
+    <div *ngIf="item.career.length === 1" class="career single-career">
+        <h3 class="position text-lg">{{ career.position }}</h3>
+        <h5 class="location">{{ career.location }}</h5>
+        <ul class="responsibilities">
+            <li *ngFor="let item of career.description">
+                {{ item }}
+            </li>
+        </ul>
+    </div>
+</div>

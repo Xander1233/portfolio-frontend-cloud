@@ -1,7 +1,15 @@
 <div class="container" fxLayout="row" fxLayoutAlign="center center">
     <div class="inner-container" fxLayout="column" fxLayoutAlign="center center">
-        <span>Based in {{personalInformation.location}}</span>
-        <h1>{{about.title}}</h1>
-        <h3 *ngIf="about.subtitle">{{about.subtitle}}</h3>
+        <span class="location">Based in {{personalInformation.location}}</span>
+        <h1 class="headline">{{about.headline}}</h1>
+        <h3 class="content" *ngIf="about.content">{{about.content}}</h3>
+        <div class="actions">
+            <a [href]="'mailto:' + personalInformation.email" class="p-button p-button-primary font-bold hover:underline">
+                <i class="pi pi-envelope"></i> Contact Me
+            </a>
+            <a [href]="about.cv_link" target="_blank" rel="noopener noreferrer" class="p-button font-bold hover:underline">
+                <i class="pi pi-download"></i> Download CV
+            </a>
+        </div>
     </div>
 </div>
