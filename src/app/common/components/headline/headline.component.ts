@@ -4,7 +4,7 @@ import { MenuItem } from 'primeng/api';
 import { forkJoin, pipe } from 'rxjs';
 
 @Component({
-	selector: 'top-bar',
+	selector: 'headline',
 	templateUrl: './headline.component.html',
 	styleUrl: './headline.component.scss',
 	standalone: false

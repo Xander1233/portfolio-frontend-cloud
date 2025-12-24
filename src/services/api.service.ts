@@ -6,6 +6,8 @@ import { Experience } from "../data/experience";
 import { Section } from "../data/section";
 import { Skills } from "../data/skills";
 import { Education } from "../data/education";
+import { About } from "../data/about";
+import { PersonalInformation } from "../data/personalInformation";
 
 @Injectable({ providedIn: 'root' })
 export class APIService extends Base {
@@ -26,11 +28,11 @@ export class APIService extends Base {
 		return this.get<Section<Education>>('/education');
 	}
 
-	getAbout(): Observable<Section<any>> {
-		return this.get<Section<any>>('/about');
+	getAbout(): Observable<Section<About>> {
+		return this.get<Section<About>>('/about');
 	}
 
-	getPersonalInformation(): Observable<Section<any>> {
-		return this.get<Section<any>>('/personal_information');
+	getPersonalInformation(): Observable<Section<PersonalInformation>> {
+		return this.get<Section<PersonalInformation>>('/personal_information');
 	}
 }

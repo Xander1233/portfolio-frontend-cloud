@@ -18,12 +18,11 @@ import { providePrimeNG } from 'primeng/config';
 import Nora from '@primeng/themes/nora';
 import { routes } from './app.routes';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { AuthRedirectInterceptor } from '../interceptors/auth-redirect.interceptor';
-import { AuthCredentialsInterceptor } from '../interceptors/auth-credentials.interceptor';
 import PROVIDERS from '../services';
 import { environment } from "../environments/environment";
 
 export const API_BASE_URL = new InjectionToken<string>("API_BASE_URL");
+export const CDN_BASE_URL = new InjectionToken<string>("CDN_BASE_URL");
 
 @NgModule({
 	declarations: [AppComponent],
@@ -52,9 +51,8 @@ export const API_BASE_URL = new InjectionToken<string>("API_BASE_URL");
 		}),
 		provideHttpClient(withInterceptorsFromDi()),
 		provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),
-		{ provide: HTTP_INTERCEPTORS, useClass: AuthCredentialsInterceptor, multi: true },
-		{ provide: HTTP_INTERCEPTORS, useClass: AuthRedirectInterceptor, multi: true },
 		{ provide: API_BASE_URL, useValue: environment.apiBaseUrl },
+		{ provide: CDN_BASE_URL, useValue: environment.cdnBaseUrl },
 		...PROVIDERS
 	],
 	bootstrap: [AppComponent]

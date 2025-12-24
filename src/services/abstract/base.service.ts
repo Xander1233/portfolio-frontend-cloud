@@ -5,7 +5,7 @@ import { API_BASE_URL } from "../../app/app.module";
 @Injectable({ providedIn: 'root' })
 export abstract class Base {
 
-	private base = 'https://intranet.straim.de';
+	private base = 'http://localhost:8000';
 	
 	constructor(private http: HttpClient, private basePath: string) {
 		this.basePath = this.basePath.replace(/^\/+|\/+$/g, '');

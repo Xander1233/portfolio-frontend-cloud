@@ -6,8 +6,6 @@ import Aura from '@primeng/themes/aura';
 
 import { routes } from './app.routes';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { AuthRedirectInterceptor } from '../interceptors/auth-redirect.interceptor';
-import { AuthCredentialsInterceptor } from '../interceptors/auth-credentials.interceptor';
 import { Base } from '../services/abstract/base.service';
 import { APIService } from '../services/api.service';
 import PROVIDERS from '../services';
@@ -22,8 +20,6 @@ export const appConfig: ApplicationConfig = {
     }),
     provideHttpClient(withInterceptorsFromDi()),
     provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),
-    { provide: HTTP_INTERCEPTORS, useClass: AuthCredentialsInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthRedirectInterceptor, multi: true },
     ...PROVIDERS
   ]
 };
