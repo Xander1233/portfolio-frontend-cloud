@@ -1,0 +1,90 @@
+name: Build API
+
+on:
+  release:
+    types:
+      - "published"
+
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to use (optional, e.g. v1.2.3)"
+        required: false
+        type: string
+        default: ""
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Resolve release tag
+        id: resolve
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          
+          # 1) explicit manual input wins
+          if [ -n "${{ inputs.tag }}" ]; then
+            TAG="${{ inputs.tag }}"
+            # Optional: validate it exists
+            gh release view "$TAG" >/dev/null || { echo "Tag $TAG not found"; exit 1; }
+            echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          
+          # 2) release event
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "tag=${{ github.event.release.tag_name }}" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          
+          # 3) manual with no input: grab latest release
+          # First try latest non-prerelease
+          TAG="$(gh api repos/${{ github.repository }}/releases/latest --jq .tag_name 2>/dev/null || true)"
+          if [ -z "$TAG" ] || [ "$TAG" = "null" ]; then
+            # Fallback: most recent published (including prereleases, excluding drafts)
+            TAG="$(gh api repos/${{ github.repository }}/releases --paginate \
+                   --jq 'map(select(.draft|not)) | sort_by(.published_at) | reverse | .[0].tag_name' \
+                   | head -n1)"
+          fi
+          
+          if [ -z "$TAG" ] || [ "$TAG" = "null" ]; then
+            echo "No releases found in repo ${{ github.repository }}"; exit 1
+          fi
+          
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Add version file
+        run: echo "${{ steps.resolve.outputs.tag }}" > ./dist/Content/browser/version.txt
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME_ARN }}
+          aws-region: eu-central-1
+      
+      - name: Sync to S3 and remove obsolete files
+        run: |
+          aws s3 sync ./dist/Content/browser ${{ secrets.AWS_S3_BUCKET }} \
+            --delete \
+            --only-show-errors
+
+      - name: Image digest
+        run: echo ${{ steps.docker_build_push.outputs.digest }}
