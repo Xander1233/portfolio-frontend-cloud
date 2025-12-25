@@ -86,5 +86,11 @@ jobs:
             --delete \
             --only-show-errors
 
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id E253DHLGZ1OOE7 \
+            --paths "/*"
+
       - name: Image digest
         run: echo ${{ steps.docker_build_push.outputs.digest }}
