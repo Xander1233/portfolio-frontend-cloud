@@ -90,7 +90,7 @@ jobs:
         run: |
           curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/purge_cache" \
             -H "Content-Type: application/json" \
-            -H "Authorization: Bearer ${{ secrets.CF_API_TOKEN }}"
+            -H "Authorization: Bearer ${{ secrets.CF_API_TOKEN }}" \
             --data '{"hosts": ["www.david-neidhart.de", "david-neidhart.de"]}'
 
       - name: Invalidate CloudFront cache
