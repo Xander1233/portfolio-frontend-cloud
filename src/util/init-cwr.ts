@@ -3,7 +3,7 @@ import { AwsRum, AwsRumConfig } from 'aws-rum-web';
 export function initCwr() {
 	try {
 		const config: AwsRumConfig = {
-			sessionSampleRate: 0.6 ,
+			sessionSampleRate: 1 ,
 			identityPoolId: "eu-central-1:999ed878-9a34-44bb-849b-8dcd5fb4a733" ,
 			endpoint: "https://dataplane.rum.eu-central-1.amazonaws.com" ,
 			telemetries: ["performance","errors","http", "session"] ,
